@@ -15,8 +15,14 @@ backgroundLayer4.src = 'layer-4.png';
 const backgroundLayer5 = new Image();
 backgroundLayer5.src = 'layer-5.png';
 
+let x = 0;
+
 function animate(){
-	ctx.drawImage(backgroundLayer2, 0, 0);
+	//this will allow to clear old canvas and take only current in transition
+	ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS CANVAS_HEIGHT);
+		ctx.drawImage(backgroundLayer4, x, 0);
+	x -= gameSpeed;
 	requestAnimationFrame(animate);
 }
 animate();
+
