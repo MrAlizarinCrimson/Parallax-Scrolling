@@ -72,7 +72,7 @@ function animate(){
 		object.update();
 		object.draw();
 	});
-	gameFrame++;
+	gameFrame--;
 	requestAnimationFrame(animate);
 
 		
