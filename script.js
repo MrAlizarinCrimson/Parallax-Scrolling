@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = canvas.width = 800;
 const CANVAS_HEIGHT = canvas.height = 700;
 let gameSpeed = 4;
+let gameFrame = 0;
 
 const backgroundLayer1 = new Image();
 backgroundLayer1.src = 'layer-1.png';
@@ -19,6 +20,11 @@ const slider = document.getElementById('slider');
 slider.value = gameSpeed;
 const showGameSpeed = document.getElementById('showGameSpeed');
 showGameSpeed.innerHTML = gameSpeed;
+slider.addEventListener('change', function(e){
+	gameSpeed = e.target.value;
+	showGameSpeed.innerHTML = e.target.value;
+
+});
 
 class Layer {
 	constructor(image, speedModifier){
@@ -26,7 +32,7 @@ class Layer {
 		this.y = 0;
 		this.width = 2400;
 		this.height = 700;
-		this.x2 = this.width;
+	
 		this.image = image;
 		this.speedModifier = speedModifier;
 		this.speed = gameSpeed * this.speedModifier;
@@ -35,20 +41,18 @@ class Layer {
 		//to move layers horizontally by changing .x & .y to reset
 		this.speed = gameSpeed * this.speedModifier;
 		if (this.x <= this.width){
-			this.x = this.width + this.x2 - this.speed;
+			this.x = 0;
 		}
-		if (this.x2 <= this.width){
-			this.x2 = this.width + this.x - this.speed;
-		}
+	
 		//if there is no resetting
-		this.x = Math.floor(this.x - this.speed);
-		this.x2 = Math.floor(this.x2 - this.speed);
+		this.x = this.x - this.speed;
+	
 	}
 
 	draw(){
 		//to take info from object to draw into canvas and redraw after the new position
 		ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-		ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);			
+		ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);			
 	}
 }
 
@@ -67,10 +71,11 @@ function animate(){
 		object.update();
 		object.draw();
 	});
-
+	gameFrame++;
 	requestAnimationFrame(animate);
 
 		
 };
 animate();
 
+1 18
