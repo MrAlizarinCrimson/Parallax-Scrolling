@@ -40,12 +40,13 @@ class Layer {
 	update(){
 		//to move layers horizontally by changing .x & .y to reset
 		this.speed = gameSpeed * this.speedModifier;
-		if (this.x <= this.width){
+		/*if (this.x <= this.width){
 			this.x = 0;
-		}
+		}*/
 	
 		//if there is no resetting
-		this.x = this.x - this.speed;
+		//this.x = this.x - this.speed;
+		this.x = gameFrame % this.width;
 	
 	}
 
@@ -78,4 +79,3 @@ function animate(){
 };
 animate();
 
-1 18
